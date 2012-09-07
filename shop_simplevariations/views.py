@@ -1,10 +1,15 @@
-from .models import Option, CartItemOption
 from django.db.models import Q
+
 from shop.models.cartmodel import CartItem
 from shop.models.productmodel import Product
 from shop.util.cart import get_or_create_cart
 from shop.views.cart import CartDetails
-from shop_simplevariations.models import TextOption, CartItemTextOption
+from shop.util.loader import load_class
+
+from shop_simplevariations.models import TextOption, CartItemTextOption, CartItemOption
+
+OPTION_MODEL = getattr(settings, 'SHOP_PRODUCTVARIATION_MODEL', 'shop_simplevariations.models.defaults.Option')
+Option = load_class(OPTION_MODEL)
 
 
 class SimplevariationCartDetails(CartDetails):
