@@ -1,4 +1,5 @@
 from django import template
+from shop_simplevariations.models import Option
 
 register = template.Library()
 
@@ -12,4 +13,4 @@ def get_option_groups(value):
 @register.filter
 def get_options(value):
     """Returns all options for the given option group."""
-    return value.option_set.all()
+    return Option.objects.filter(group=value).all()
